@@ -277,7 +277,7 @@ void SetupWebPages()
   });
 
   // Actions that does NOT require authorization
-  MyWebServer.on("/Login",                     HTTP_GET, []() {
+  MyWebServer.on("/Login",                     HTTP_POST, []() {
     if(HandleLogin(MyWebServer.arg("login"),MyWebServer.arg("pwd")))
       RedirectWebRequest("/");
     else
@@ -296,7 +296,7 @@ void SetupWebPages()
       RedirectWebRequest("/loginIndex");    
   });
 
-  MyWebServer.on("/SavePreferencesAndRestart", HTTP_GET, []() {
+  MyWebServer.on("/SavePreferencesAndRestart", HTTP_POST, []() {
     if(CheckLogin())
     {
       StoreNewConfig(MyWebServer.arg("ssid"),MyWebServer.arg("pwd"),MyWebServer.arg("userlogin"),MyWebServer.arg("userpwd"),MyWebServer.arg("mepkey"));

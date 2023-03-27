@@ -207,7 +207,6 @@
 		<script>
 			$(document).ready( function () {
 				$('#MEPQueueTable').dataTable( {
-					pageLength: 10,
 					dom: 'Bfrti',
 					buttons: [
 						'copyHtml5',
@@ -269,7 +268,7 @@
 	</head>
 	<body> 
       ###FILE:/menu-include.html###
-      <form method="GET" name=loginForm action="/Login">
+      <form method="POST" name=loginForm action="/Login">
 			<input name=LoginSession type=hidden value="###LoginSession###" />
 			<h1>ESP32-MEP Login</h1>
 			<input name=login placeholder="Login name" autofocus />
@@ -358,7 +357,7 @@
 	</head>
 	<body>
 		###FILE:/menu-include.html###
-		<form method="GET" name=setupForm action="/SavePreferencesAndRestart">
+		<form method="POST" name=setupForm action="/SavePreferencesAndRestart">
 			<input name=LoginSession type=hidden value=###LoginSession###>
 			<h1>ESP32-MEP Setup</h1>
 			WIFI SSID and password:<br>
