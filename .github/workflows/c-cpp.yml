@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - uses: arduino/compile-sketches@1.0.1
+    - uses: arduino/compile-sketches@v1.0.1
       with:
         fqbn: esp32:esp32:esp32doit-devkit-v1
-        
+        sketch-paths: NES-MEP-UI
