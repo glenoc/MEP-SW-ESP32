@@ -140,7 +140,7 @@ String UnsignedLongAsHexString(unsigned long Value)
 
   for(byte i = 0;i <= 3;i++)
   {
-    sprintf(Buffer2,"%02x",Value % 256);
+    sprintf(Buffer2,"%02x",uint(Value % 256));
     Value = Value / 256;
     Buffer = Buffer2 + Buffer;
   }

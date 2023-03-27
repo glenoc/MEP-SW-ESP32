@@ -90,7 +90,7 @@ void setup(void) {
   Serial.printf("user_login: '%s'\r\nuser_pwd: '%s'\r\n",user_login,user_password);
   Serial.printf("mep_key: '%s'",mep_key);
 
-  if(wifi_password == "") {
+  if(strcmp(wifi_password, "")) {
     WiFi.begin(wifi_ssid);
   }
   else {
@@ -173,7 +173,7 @@ void loop(void) {
   if((!APMode) && (WiFi.status() != WL_CONNECTED)) {
     Serial.println("Disconnected from WIFI access point");
     Serial.println("Reconnecting...");
-    if(wifi_password == "") {
+    if(strcmp(wifi_password, "")) {
       WiFi.begin(wifi_ssid);
     }
     else {
@@ -222,7 +222,7 @@ void loop(void) {
 
       if(InputBufferLength >= MaxMEPReplyLength) {
         queueResponseWithNoRequest(InputBuffer,InputBufferLength,MEPQueue,&MEPQueueNextIndex);
-        Serial.printf("Error: Input buffer overflow. InputBufferLength: %i Dropping buffer with this contents:\r\n",InputBufferLength);
+        Serial.printf("Error: Input buffer overflow. InputBufferLength: %i Dropping buffer with this contents:\r\n", int(InputBufferLength));
         dumpByteArray(InputBuffer,InputBufferLength);       
         InputBufferLength = 0;
       }
@@ -232,7 +232,7 @@ void loop(void) {
         if(!SentAwaitingReply)
         {
           queueResponseWithNoRequest(InputBuffer,InputBufferLength,MEPQueue,&MEPQueueNextIndex);
-          Serial.printf("Error: InputBufferLength: %i, got this reply from the meter, but did not expect one:\r\n",InputBufferLength);
+          Serial.printf("Error: InputBufferLength: %i, got this reply from the meter, but did not expect one:\r\n", int(InputBufferLength));
           dumpByteArray(InputBuffer,InputBufferLength);       
           InputBufferLength = 0;
         }
@@ -280,7 +280,7 @@ void loop(void) {
     }
     else {
       if((!SentAwaitingReply) && (millis()-LastReceiveMillis > 100)) {
-        Serial.printf("Error: InputBufferLength: %i, got this garbage from the meter, but did not expect a package:\r\n",InputBufferLength);
+        Serial.printf("Error: InputBufferLength: %i, got this garbage from the meter, but did not expect a package:\r\n", int(InputBufferLength));
         dumpByteArray(InputBuffer,InputBufferLength);       
         InputBufferLength = 0;
       }
@@ -298,7 +298,7 @@ void loop(void) {
     }
     if((MEPQueue[MEPQueueSendIndex].RequestLength > 0) && (MEPQueue[MEPQueueSendIndex].ReplyLength == 0)) {
       if(MEPQueue[MEPQueueSendIndex].SendAttempts >= MaxSendAttempts) {
-        Serial.printf("Giving up on reqest at index %i - too may retries\r\n");
+        Serial.printf("Giving up on reqest at index %i - too may retries\r\n", MEPQueueSendIndex);
         IncreaseMEPQueueIndex(&MEPQueueSendIndex);
       }
       else
